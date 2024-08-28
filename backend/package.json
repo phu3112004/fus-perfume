@@ -10,7 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "backend": "file:",
+    "config": "^3.3.12",
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0",
+    "q": "^1.5.1"
   }
 }

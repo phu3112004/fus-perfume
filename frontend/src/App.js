@@ -1,4 +1,3 @@
-import './App.css';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -16,7 +15,10 @@ function App() {
   return (
     <div>
       {data.map((item, index) => (
+        <>
         <h1 key={index}>{item.name}</h1>
+        <img style={{width: "100px", height: "100px"}} src={item.image}></img>
+        </>
       ))}
     </div>
   );

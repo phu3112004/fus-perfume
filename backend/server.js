@@ -1,16 +1,20 @@
 const express = require('express');
 const cors = require('cors'); 
 const app = express();
-const port = process.env.PORT || 5000;
+var config = require('./config/default.json')
+var product_md = require('./app/models/product')
+
+const port = config.server.port;
 
 app.use(cors()); 
 
 app.get('/api/products', (req, res) => {
-    const products = [
-        { id: 1, name: 'Dog Food', price: 20 },
-        { id: 2, name: 'Cat Toy', price: 10 },
-    ];
-    res.json(products);
+    var products = product_md.getAllProducts()
+    products.then(function(result){
+        res.json(result)
+    }).catch(function(error){
+        res.json({error: "cannot get all products"})
+    })
 });
 
 app.listen(port, () => {
