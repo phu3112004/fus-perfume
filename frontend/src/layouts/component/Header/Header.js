@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
@@ -5,13 +7,38 @@ import {
   faUser,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import classNames from "classnames/bind";
+import "tippy.js/dist/tippy.css";
 import styles from "./Header.module.scss";
-import { Link } from "react-router-dom";
+import Submenu from "../../../Component/Submenu/Submenu";
+import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
 function Header() {
+  useEffect(() => {
+    const headerLink = document.querySelector(`.${cx("header__link")}`);
+    const wrappers = document.querySelectorAll(
+      `.${cx("header__link--wrapper")}`
+    );
+
+    if (headerLink) {
+      const linkWidth = headerLink.offsetWidth;
+
+      wrappers.forEach((wrapper) => {
+        const submenu = wrapper.querySelector(
+          `.${cx("header__link--submenu")}`
+        );
+
+        if (submenu) {
+          submenu.style.width = `${linkWidth}px`;
+          const wrapperLeft = wrapper.getBoundingClientRect().left;
+          const linkLeft = headerLink.getBoundingClientRect().left;
+          submenu.style.left = `${linkLeft - wrapperLeft}px`;
+        }
+      });
+    }
+  }, []);
+
   return (
     <div className={cx("header__container")}>
       <div className={cx("header__item")}>
@@ -49,19 +76,31 @@ function Header() {
         </div>
       </div>
       <div className={cx("header__link")}>
-        <Link to="/" className={cx("header__link--item")}>
-          Perfume for Men
-        </Link>
-        <Link to="/" className={cx("header__link--item")}>
-          Perfume for Women
-        </Link>
-        <Link to="/" className={cx("header__link--item")}>
+        <div className={cx("header__link--wrapper")}>
+          <Link to="/men" className={cx("header__link--item")}>
+            Perfume for Men
+          </Link>
+          <div className={cx("header__link--submenu")}>
+            <Submenu type="men" />
+          </div>
+        </div>
+
+        <div className={cx("header__link--wrapper")}>
+          <Link to="/women" className={cx("header__link--item")}>
+            Perfume for Women
+          </Link>
+          <div className={cx("header__link--submenu")}>
+            <Submenu type="women" />
+          </div>
+        </div>
+
+        <Link to="/all-brands" className={cx("header__link--item")}>
           Brands
         </Link>
-        <Link to="/" className={cx("header__link--item")}>
+        <Link to="/bodycare" className={cx("header__link--item")}>
           Bodycare & Homecare
         </Link>
-        <Link to="/" className={cx("header__link--item")}>
+        <Link to="/lipstick" className={cx("header__link--item")}>
           Lipstick
         </Link>
       </div>
