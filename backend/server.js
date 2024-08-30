@@ -1,22 +1,14 @@
-const express = require('express');
-const cors = require('cors'); 
+const express = require("express");
+const cors = require("cors");
 const app = express();
-var config = require('./config/default.json')
-var product_md = require('./app/models/product')
+var config = require("./config/default.json");
 
 const port = config.server.port;
 
-app.use(cors()); 
+app.use(cors());
 
-app.get('/api/products', (req, res) => {
-    var products = product_md.getAllProducts()
-    products.then(function(result){
-        res.json(result)
-    }).catch(function(error){
-        res.json({error: "cannot get all products"})
-    })
-});
-
+var productControllers = require(__dirname + "/app/controllers/product");
+app.use(productControllers);
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
