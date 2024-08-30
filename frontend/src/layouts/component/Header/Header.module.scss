@@ -105,12 +105,22 @@
 
     &--wrapper {
       position: relative;
-    }
-    &--wrapper:hover .header__link--submenu {
-      display: flex;
-    }
-    &--wrapper:hover .header__link--item {
-      color: var(--primary);
+      &:hover .header__link--submenu {
+        display: flex;
+      }
+      &:hover .header__link--item {
+        color: var(--primary);
+      }
+      &::after {
+        content: "";
+        background-color: transparent;
+        width: 100%;
+        height: 12px;
+        position: absolute;
+        top: 80%;
+        left: 0;
+        cursor: pointer;
+      }
     }
 
     &--item {
@@ -125,7 +135,7 @@
 
     &--submenu {
       position: absolute;
-      top: 100%;
+      top: 140%;
       left: 0;
       width: auto; // Độ rộng sẽ được JavaScript điều chỉnh
       min-width: 100%; // Đảm bảo submenu lấy chiều rộng bằng với .header__link
