@@ -1,0 +1,87 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  padding: 20px;
+  border-radius: 8px;
+  width: 60%;
+  height: calc(100vh - 200px);
+  background: white;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+
+  &__image {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding: 12px;
+    &--img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__info {
+    width: 55%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    &--tag {
+      font-size: 1.2rem;
+      color: var(--black);
+      background-color: #ffeb9c;
+      width: fit-content;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    &--name {
+      font-size: 2rem;
+    }
+    &--brand,
+    &--origin {
+      font-size: 1.6rem;
+    }
+    &--discount {
+      font-size: 2rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    background-color: var(--primary);
+    color: var(--white);
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9999px;
+    border: none;
+    font-size: 1.7rem;
+    cursor: pointer;
+    top: -8px;
+    right: -8px;
+  }
+}
+
+.men {
+  background-color: #a8bbff;
+}
+.women {
+  background-color: #ffa3e8;
+}

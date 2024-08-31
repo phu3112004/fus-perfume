@@ -13,4 +13,16 @@ router.get("/api/products", (req, res) => {
     });
 });
 
+router.get("/api/products/search", (req, res) => {
+  var sex = req.query.sex;
+  var products = product_md.getAllProductsBySex(sex);
+  products
+    .then(function (result) {
+      res.json(result);
+    })
+    .catch(function (error) {
+      res.json({ error: "cannot get all products by sex" });
+    });
+});
+
 module.exports = router;

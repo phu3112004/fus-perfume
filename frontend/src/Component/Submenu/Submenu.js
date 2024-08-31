@@ -7,7 +7,6 @@ const cx = classNames.bind(styles);
 
 function Submenu(props) {
   const { type } = props;
-  console.log(type);
   const womenImage = [
     "https://theme.hstatic.net/1000340570/1000964732/14/menu_hover_nu_3.jpg?v=6078",
     "https://theme.hstatic.net/1000340570/1000964732/14/menu_hover_nu_1.jpg?v=6078",
