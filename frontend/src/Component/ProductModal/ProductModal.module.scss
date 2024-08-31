@@ -8,10 +8,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .modal {
-  padding: 20px;
+  padding: 32px;
   border-radius: 8px;
   width: 60%;
   height: calc(100vh - 200px);
@@ -25,10 +26,9 @@
     height: 100%;
     display: flex;
     justify-content: flex-start;
-    padding: 12px;
     &--img {
       width: 100%;
-      height: 100%;
+      height: 80%;
     }
   }
 
@@ -40,19 +40,29 @@
     flex-direction: column;
 
     &--tag {
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: var(--black);
       background-color: #ffeb9c;
       width: fit-content;
-      padding: 2px 4px;
+      padding: 4px 6px;
       border-radius: 4px;
+      text-transform: uppercase;
     }
     &--name {
       font-size: 2rem;
+      margin-top: 16px;
     }
     &--brand,
     &--origin {
+      margin-top: 16px;
       font-size: 1.6rem;
+    }
+    &--price {
+      font-size: 1.2rem;
+      text-decoration: line-through;
+      color: #333;
+      margin-top: 16px;
+      font-style: italic;
     }
     &--discount {
       font-size: 2rem;
@@ -78,7 +88,23 @@
     right: -8px;
   }
 }
-
+.modal__buy {
+  margin-top: 32px;
+  display: inline-flex;
+  justify-content: space-between;
+  &--btn {
+    width: 48%;
+    padding: 16px 8px;
+    color: var(--white);
+    background-color: var(--primary);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
 .men {
   background-color: #a8bbff;
 }

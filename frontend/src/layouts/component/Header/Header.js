@@ -11,10 +11,12 @@ import "tippy.js/dist/tippy.css";
 import styles from "./Header.module.scss";
 import Submenu from "../../../Component/Submenu/Submenu";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
 function Header() {
+  var loveProductList = useSelector((state) => state.loveReducer);
   useEffect(() => {
     const headerLink = document.querySelector(`.${cx("header__link")}`);
     const wrappers = document.querySelectorAll(
@@ -38,7 +40,6 @@ function Header() {
       });
     }
   }, []);
-
   return (
     <div className={cx("header__container")}>
       <div className={cx("header__item")}>
@@ -67,7 +68,9 @@ function Header() {
           </div>
           <div className={cx("header__action--icon")}>
             <FontAwesomeIcon icon={faHeart} />
-            <div className={cx("count")}>0</div>
+            <div className={cx("count")}>
+              {loveProductList.length > 99 ? "99+" : loveProductList.length}
+            </div>
           </div>
           <div className={cx("header__action--icon")}>
             <FontAwesomeIcon icon={faCartShopping} />

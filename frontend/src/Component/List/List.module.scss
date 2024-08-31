@@ -3,7 +3,8 @@
   flex-direction: row;
   width: 100%;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 32px;
   padding: 16px 64px;
 
   &__item {
@@ -11,7 +12,6 @@
     width: 22%;
     height: 300px;
     flex-direction: column;
-    margin-top: 16px;
     justify-content: space-between;
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
   }

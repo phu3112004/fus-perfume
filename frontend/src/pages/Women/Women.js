@@ -2,7 +2,7 @@ import List from "../../Component/List/List";
 function Women() {
   return (
     <>
-      <h1> List of Perfume for men </h1>
+      <h1 style={{ marginLeft: "16px" }}> List of Perfume for women </h1>
       <List sex="women" />
     </>
   );

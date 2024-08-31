@@ -5,17 +5,31 @@ import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import ProductModal from "../ProductModal/ProductModal";
+import { useDispatch, useSelector } from "react-redux";
+import { addToLove, removeFromLove } from "../../actions/loveAction";
 const cx = classNames.bind(styles);
 
 function List({ sex = "men" }) {
   const [data, setData] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [loveStatus, setLoveStatus] = useState({});
+  const dispatch = useDispatch();
+  var loveProductList = useSelector((state) => state.loveReducer);
+
   useEffect(() => {
     const apikey = `${config.apikey.api}/search?sex=${sex}`;
     fetch(apikey)
       .then((res) => res.json())
       .then((data) => {
         setData(data);
+        setLoveStatus(
+          data.reduce((acc, item) => {
+            acc[item.id] = loveProductList.some(
+              (loveItem) => loveItem.id === item.id
+            );
+            return acc;
+          }, {})
+        );
       })
       .catch((error) => console.error("Error fetching:", error));
   }, [sex]);
@@ -25,6 +39,16 @@ function List({ sex = "men" }) {
 
   const handleCloseModal = () => {
     setSelectedProduct(null);
+  };
+
+  const handleLove = (item) => {
+    if (loveStatus[item.id]) {
+      dispatch(removeFromLove(item.id));
+      setLoveStatus({ ...loveStatus, [item.id]: false });
+    } else {
+      dispatch(addToLove(item));
+      setLoveStatus({ ...loveStatus, [item.id]: true });
+    }
   };
   return (
     <>
@@ -37,7 +61,13 @@ function List({ sex = "men" }) {
                 src={item.image}
                 alt="perfume"
               />
-              <button className={cx("list__action--love")}>
+              <button
+                style={{
+                  color: loveStatus[item.id] ? "var(--primary)" : "var(--gray)",
+                }}
+                className={cx("list__action--love")}
+                onClick={() => handleLove(item)}
+              >
                 <FontAwesomeIcon icon={faHeart} />
               </button>
               <button
