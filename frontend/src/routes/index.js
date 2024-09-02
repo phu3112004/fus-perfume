@@ -8,6 +8,7 @@ import Search from "../pages/Search/Search";
 import Men from "../pages/Men/Men";
 import Women from "../pages/Women/Women";
 import NotFounded from "../pages/NotFounded/NotFounded";
+import Love from "../pages/Love/Love";
 
 const publicRoutes = [
   { path: config.routes.home, component: <Home /> },
@@ -19,6 +20,7 @@ const publicRoutes = [
   { path: config.routes.bodycare, component: <Bodycare /> },
   { path: config.routes.lipstick, component: <Lipstick /> },
   { path: config.routes.search, component: <Search /> },
+  { path: config.routes.love, component: <Love /> },
   { path: "/*", component: <NotFounded /> },
 ];
 const privateRoutes = [];

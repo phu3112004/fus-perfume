@@ -66,12 +66,12 @@ function Header() {
             <FontAwesomeIcon icon={faUser} />
             <p>Login</p>
           </div>
-          <div className={cx("header__action--icon")}>
+          <Link to="/love" className={cx("header__action--icon")}>
             <FontAwesomeIcon icon={faHeart} />
             <div className={cx("count")}>
               {loveProductList.length > 99 ? "99+" : loveProductList.length}
             </div>
-          </div>
+          </Link>
           <div className={cx("header__action--icon")}>
             <FontAwesomeIcon icon={faCartShopping} />
             <div className={cx("count")}>0</div>

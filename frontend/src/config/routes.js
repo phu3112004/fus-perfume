@@ -8,5 +8,6 @@ const routes = {
   lipstick: "/lipstick",
   bodycare: "/bodycare",
   search: "/search",
+  love: "/love",
 };
 export default routes;

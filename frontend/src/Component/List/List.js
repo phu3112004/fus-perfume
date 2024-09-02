@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToLove, removeFromLove } from "../../actions/loveAction";
 const cx = classNames.bind(styles);
 
-function List({ sex = "men" }) {
+function List({ type = "men" }) {
   const [data, setData] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loveStatus, setLoveStatus] = useState({});
@@ -17,22 +17,33 @@ function List({ sex = "men" }) {
   var loveProductList = useSelector((state) => state.loveReducer);
 
   useEffect(() => {
-    const apikey = `${config.apikey.api}/search?sex=${sex}`;
-    fetch(apikey)
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoveStatus(
-          data.reduce((acc, item) => {
-            acc[item.id] = loveProductList.some(
-              (loveItem) => loveItem.id === item.id
-            );
-            return acc;
-          }, {})
-        );
-      })
-      .catch((error) => console.error("Error fetching:", error));
-  }, [sex]);
+    if (type === "love") {
+      setData(loveProductList);
+      setLoveStatus(
+        loveProductList.reduce((acc, item) => {
+          acc[item.id] = true;
+          return acc;
+        }, {})
+      );
+    } else {
+      const apikey = `${config.apikey.api}/search?sex=${type}`;
+      fetch(apikey)
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data);
+          setLoveStatus(
+            data.reduce((acc, item) => {
+              acc[item.id] = loveProductList.some(
+                (loveItem) => loveItem.id === item.id
+              );
+              return acc;
+            }, {})
+          );
+        })
+        .catch((error) => console.error("Error fetching:", error));
+    }
+  }, [type, loveProductList, data]);
+
   const handleQuickView = (product) => {
     setSelectedProduct(product);
   };
@@ -50,52 +61,62 @@ function List({ sex = "men" }) {
       setLoveStatus({ ...loveStatus, [item.id]: true });
     }
   };
+
   return (
     <>
-      <ul className={cx("list")}>
-        {data.map((item, index) => (
-          <li key={index} className={cx("list__item")}>
-            <div className={cx("list__action")}>
-              <img
-                className={cx("list__action--img")}
-                src={item.image}
-                alt="perfume"
-              />
-              <button
-                style={{
-                  color: loveStatus[item.id] ? "var(--primary)" : "var(--gray)",
-                }}
-                className={cx("list__action--love")}
-                onClick={() => handleLove(item)}
-              >
-                <FontAwesomeIcon icon={faHeart} />
-              </button>
-              <button
-                className={cx("list__action--view")}
-                onClick={() => handleQuickView(item)}
-              >
-                Quick view
-              </button>
-            </div>
-            <div className={cx("list__info")}>
-              <div>
-                <h2 className={cx("list__info--brand")}>{item.brand}</h2>
-                <p className={cx("list__info--name")}>{item.name}</p>
-              </div>
-              <div>
-                <p className={cx("list__info--price")}>{item.price}$</p>
-                <p className={cx("list__info--discount")}>
-                  {Math.floor(
-                    item.price - (item.price * (item.discountPrice || 0)) / 100
-                  )}
-                  $
-                </p>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <ProductModal product={selectedProduct} onClose={handleCloseModal} />
+      {data.length > 0 ? (
+        <>
+          <ul className={cx("list")}>
+            {data.map((item, index) => (
+              <li key={index} className={cx("list__item")}>
+                <div className={cx("list__action")}>
+                  <img
+                    className={cx("list__action--img")}
+                    src={item.image}
+                    alt="perfume"
+                  />
+                  <button
+                    style={{
+                      color: loveStatus[item.id]
+                        ? "var(--primary)"
+                        : "var(--gray)",
+                    }}
+                    className={cx("list__action--love")}
+                    onClick={() => handleLove(item)}
+                  >
+                    <FontAwesomeIcon icon={faHeart} />
+                  </button>
+                  <button
+                    className={cx("list__action--view")}
+                    onClick={() => handleQuickView(item)}
+                  >
+                    Quick view
+                  </button>
+                </div>
+                <div className={cx("list__info")}>
+                  <div>
+                    <h2 className={cx("list__info--brand")}>{item.brand}</h2>
+                    <p className={cx("list__info--name")}>{item.name}</p>
+                  </div>
+                  <div>
+                    <p className={cx("list__info--price")}>{item.price}$</p>
+                    <p className={cx("list__info--discount")}>
+                      {Math.floor(
+                        item.price -
+                          (item.price * (item.discountPrice || 0)) / 100
+                      )}
+                      $
+                    </p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <ProductModal product={selectedProduct} onClose={handleCloseModal} />
+        </>
+      ) : (
+        <p className={cx("list__no-product")}>No products.</p>
+      )}
     </>
   );
 }
