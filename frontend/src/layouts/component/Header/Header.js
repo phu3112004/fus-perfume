@@ -17,6 +17,7 @@ const cx = classNames.bind(styles);
 
 function Header() {
   var loveProductList = useSelector((state) => state.loveReducer);
+  var cartProductList = useSelector((state) => state.cartReducer);
   useEffect(() => {
     const headerLink = document.querySelector(`.${cx("header__link")}`);
     const wrappers = document.querySelectorAll(
@@ -72,10 +73,12 @@ function Header() {
               {loveProductList.length > 99 ? "99+" : loveProductList.length}
             </div>
           </Link>
-          <div className={cx("header__action--icon")}>
+          <Link to="/cart" className={cx("header__action--icon")}>
             <FontAwesomeIcon icon={faCartShopping} />
-            <div className={cx("count")}>0</div>
-          </div>
+            <div className={cx("count")}>
+              {cartProductList.length > 99 ? "99+" : cartProductList.length}
+            </div>
+          </Link>
         </div>
       </div>
       <div className={cx("header__link")}>

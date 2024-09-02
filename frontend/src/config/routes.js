@@ -9,5 +9,6 @@ const routes = {
   bodycare: "/bodycare",
   search: "/search",
   love: "/love",
+  cart: "/cart",
 };
 export default routes;

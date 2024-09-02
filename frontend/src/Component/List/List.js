@@ -15,10 +15,19 @@ function List({ type = "men" }) {
   const [loveStatus, setLoveStatus] = useState({});
   const dispatch = useDispatch();
   var loveProductList = useSelector((state) => state.loveReducer);
+  var cartProductList = useSelector((state) => state.cartReducer);
 
   useEffect(() => {
     if (type === "love") {
       setData(loveProductList);
+      setLoveStatus(
+        loveProductList.reduce((acc, item) => {
+          acc[item.id] = true;
+          return acc;
+        }, {})
+      );
+    } else if (type === "cart") {
+      setData(cartProductList);
       setLoveStatus(
         loveProductList.reduce((acc, item) => {
           acc[item.id] = true;
@@ -42,7 +51,7 @@ function List({ type = "men" }) {
         })
         .catch((error) => console.error("Error fetching:", error));
     }
-  }, [type, loveProductList, data]);
+  }, [type, loveProductList, cartProductList, data]);
 
   const handleQuickView = (product) => {
     setSelectedProduct(product);

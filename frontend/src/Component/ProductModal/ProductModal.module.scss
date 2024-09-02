@@ -71,6 +71,19 @@
       font-weight: 600;
     }
   }
+  &__notification {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    display: none;
+    text-align: center;
+    border-radius: 5px;
+    position: absolute;
+    right: 16px;
+    top: 0;
+    animation: fadeIn 0.2s ease-in;
+  }
 
   &__close {
     position: absolute;
@@ -111,4 +124,13 @@
 }
 .women {
   background-color: #ffa3e8;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
