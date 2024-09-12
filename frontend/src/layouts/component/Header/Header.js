@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "tippy.js/dist/tippy.css";
 import styles from "./Header.module.scss";
-import Submenu from "../../../Component/Submenu/Submenu";
+import Submenu from "../../../component/Submenu/Submenu";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 

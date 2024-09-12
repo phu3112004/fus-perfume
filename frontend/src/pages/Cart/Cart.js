@@ -1,4 +1,4 @@
-import List from "../../Component/List/List";
+import List from "../../component/List/List";
 function Cart() {
   return (
     <>

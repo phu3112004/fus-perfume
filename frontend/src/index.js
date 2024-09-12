@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import GlobalStyles from "./Component/GlobalStyles/GlobalStyles";
+import GlobalStyles from "./component/GlobalStyles/GlobalStyles";
 import { Provider as ReduxProvider } from "react-redux";
 import { createStore } from "redux";
 import allReducers from "./reducers/index";
